@@ -26,7 +26,7 @@ export function Activities() {
 
         <ol className="relative mx-auto mt-14 max-w-3xl">
           <span
-            className="absolute start-[1.35rem] top-3 bottom-3 w-px bg-gold/40 sm:start-1/2 sm:-translate-x-px rtl:sm:translate-x-px"
+            className="absolute top-3 bottom-3 left-[1.35rem] w-px bg-gold/40 sm:left-1/2 sm:-translate-x-px"
             aria-hidden
           />
           {t.activities.items.map((item, index) => {
@@ -40,7 +40,7 @@ export function Activities() {
                       left ? "" : "sm:[&>article]:col-start-2"
                     }`}
                   >
-                    <span className="relative z-10 mt-1 flex size-11 shrink-0 items-center justify-center rounded-full border-4 border-ivory bg-forest text-gold sm:absolute sm:start-1/2 sm:top-4 sm:-translate-x-1/2 rtl:sm:translate-x-1/2">
+                    <span className="relative z-10 mt-1 flex size-11 shrink-0 items-center justify-center rounded-full border-4 border-ivory bg-forest text-gold sm:absolute sm:top-4 sm:left-1/2 sm:-translate-x-1/2">
                       <Icon className="size-4" aria-hidden />
                     </span>
                     <article className="rounded-3xl border border-forest/8 bg-ivory p-5 shadow-sm sm:p-6">

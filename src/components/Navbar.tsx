@@ -123,12 +123,12 @@ export function Navbar() {
             <button
               type="button"
               className="inline-flex size-11 items-center justify-center rounded-full border border-forest/15 bg-ivory/80 text-forest backdrop-blur xl:hidden focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
-            aria-expanded={open}
-            aria-controls={menuId}
-            aria-label={open ? labels.closeMenu : labels.openMenu}
-            onClick={() => setOpen((value) => !value)}
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+              aria-expanded={open}
+              aria-controls={menuId}
+              aria-label={open ? labels.closeMenu : labels.openMenu}
+              onClick={() => setOpen((value) => !value)}
+            >
+              {open ? <X className="size-5" /> : <Menu className="size-5" />}
             </button>
           </div>
         </nav>

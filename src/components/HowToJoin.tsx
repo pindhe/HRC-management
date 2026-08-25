@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -8,8 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n/language-provider";
 
 export function HowToJoin() {
-  const { t, dir } = useI18n();
-  const Arrow = dir === "rtl" ? ArrowLeft : ArrowRight;
+  const { t } = useI18n();
 
   return (
     <section id="join" className="scroll-mt-24 bg-beige-warm/50 py-16 sm:py-20 lg:py-28">
@@ -23,7 +22,7 @@ export function HowToJoin() {
             <Reveal key={step.number} delay={index * 0.1}>
               <article className="relative h-full rounded-3xl border border-forest/8 bg-ivory p-8 text-center shadow-sm">
                 {index < t.howToJoin.steps.length - 1 ? (
-                  <Arrow
+                  <ArrowRight
                     className="absolute top-10 -end-5 hidden size-8 text-gold/70 md:block rtl:rotate-180"
                     aria-hidden
                   />
