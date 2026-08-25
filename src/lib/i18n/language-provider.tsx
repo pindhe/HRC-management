@@ -4,9 +4,8 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
-  useState,
+  useSyncExternalStore,
   type ReactNode,
 } from "react";
 import { ar } from "./ar";
@@ -31,6 +30,7 @@ type LanguageContextValue = {
 };
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
+const listeners = new Set<() => void>();
 
 function isLocale(value: string | null): value is Locale {
   return value !== null && (locales as readonly string[]).includes(value);
@@ -42,31 +42,35 @@ function applyDocumentLocale(locale: Locale) {
   document.documentElement.dir = meta.dir;
 }
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(defaultLocale);
+function getStoredLocale(): Locale {
+  try {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    return isLocale(stored) ? stored : defaultLocale;
+  } catch {
+    return defaultLocale;
+  }
+}
 
-  useEffect(() => {
-    try {
-      const stored = window.localStorage.getItem(STORAGE_KEY);
-      if (isLocale(stored)) {
-        setLocaleState(stored);
-        applyDocumentLocale(stored);
-      } else {
-        applyDocumentLocale(defaultLocale);
-      }
-    } catch {
-      applyDocumentLocale(defaultLocale);
-    }
-  }, []);
+function subscribe(callback: () => void) {
+  listeners.add(callback);
+  return () => listeners.delete(callback);
+}
+
+function emit() {
+  listeners.forEach((listener) => listener());
+}
+
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  const locale = useSyncExternalStore(subscribe, getStoredLocale, () => defaultLocale);
 
   const setLocale = useCallback((next: Locale) => {
-    setLocaleState(next);
-    applyDocumentLocale(next);
     try {
       window.localStorage.setItem(STORAGE_KEY, next);
     } catch {
       /* ignore quota / private mode */
     }
+    applyDocumentLocale(next);
+    emit();
   }, []);
 
   const value = useMemo<LanguageContextValue>(
