@@ -159,7 +159,6 @@ export function Navbar() {
               </li>
             ))}
           </ul>
-          <LanguageSwitcher />
           <Button asChild size="lg" className="w-full">
             <a href="#join" onClick={() => setOpen(false)}>
               {labels.cta}
