@@ -6,6 +6,8 @@ export const site = {
   name: "Hage Reading Club",
   shortName: "HAGE",
   url: "https://hagereadingclub.org",
+  logoLight: "/logo1.jpg",
+  logoDark: "/logo.png",
   taglineEn: "Read. Learn. Share. Grow.",
   taglineSo: "Akhri. Baro. Wadaag. Horumar.",
   contact: {

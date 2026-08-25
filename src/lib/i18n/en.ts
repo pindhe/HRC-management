@@ -13,6 +13,8 @@ export const en: Dictionary = {
     openMenu: "Open menu",
     closeMenu: "Close menu",
     skipToContent: "Skip to content",
+    themeToDark: "Switch to dark theme",
+    themeToLight: "Switch to light theme",
   },
   hero: {
     badge: "Welcome to Hage Reading Club",
@@ -21,7 +23,7 @@ export const en: Dictionary = {
     primary: "Join the Club",
     secondary: "Discover Hage",
     imageAlt:
-      "Open books on a table in warm natural light, evoking a reading community",
+      "Colorful open books on a table, evoking a reading community",
     floatQuote: "Read. Learn. Share. Grow.",
     floatLabel: "Reading community",
     floatCommunity: "Share knowledge",

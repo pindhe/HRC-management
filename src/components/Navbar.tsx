@@ -1,21 +1,33 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
-import { Menu, X } from "lucide-react";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import {
+  BookOpen,
+  CalendarDays,
+  Compass,
+  Home,
+  Mail,
+  Menu,
+  Sparkles,
+  UserPlus,
+  Users,
+  X,
+} from "lucide-react";
 import { Logo } from "@/components/Logo";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n/language-provider";
+import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
-  { href: "#home", key: "home" },
-  { href: "#about", key: "about" },
-  { href: "#what-we-do", key: "whatWeDo" },
-  { href: "#mission", key: "mission" },
-  { href: "#activities", key: "activities" },
-  { href: "#join", key: "join" },
-  { href: "#contact", key: "contact" },
+  { href: "#home", key: "home", icon: Home },
+  { href: "#about", key: "about", icon: Users },
+  { href: "#what-we-do", key: "whatWeDo", icon: BookOpen },
+  { href: "#mission", key: "mission", icon: Compass },
+  { href: "#activities", key: "activities", icon: CalendarDays },
+  { href: "#join", key: "join", icon: UserPlus },
+  { href: "#contact", key: "contact", icon: Mail },
 ] as const;
 
 export function Navbar() {
@@ -71,6 +83,9 @@ export function Navbar() {
   }, [open]);
 
   const labels = t.nav;
+  const { theme } = useTheme();
+  const onDark = !scrolled && !open;
+  const darkLogo = onDark || theme === "dark";
 
   return (
     <>
@@ -97,36 +112,64 @@ export function Navbar() {
             aria-label="Hage Reading Club"
             className="rounded-lg focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
           >
-            <Logo priority />
+            <Logo priority light={onDark} surface={darkLogo ? "dark" : "light"} />
           </a>
 
           <ul className="hidden items-center gap-0.5 xl:flex">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  aria-current={active === item.href ? "page" : undefined}
-                  className={cn(
-                    "rounded-full px-3 py-2 text-[13px] font-medium transition-colors focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none",
-                    active === item.href
-                      ? "bg-beige/70 text-forest"
-                      : "text-muted hover:text-forest",
-                  )}
-                >
-                  {labels[item.key]}
-                </a>
-              </li>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const Icon = item.icon;
+              const isActive = active === item.href;
+              return (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    aria-current={isActive ? "page" : undefined}
+                    className={cn(
+                      "inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-[13px] font-medium transition-colors focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none",
+                      isActive
+                        ? onDark
+                          ? "bg-ivory/15 text-ivory"
+                          : "bg-beige/70 text-forest"
+                        : onDark
+                          ? "text-ivory/80 hover:bg-ivory/10 hover:text-ivory"
+                          : "text-muted hover:bg-beige/40 hover:text-forest",
+                    )}
+                  >
+                    <Icon
+                      className={cn(
+                        "size-3.5 shrink-0",
+                        isActive ? "text-gold" : "opacity-80",
+                      )}
+                      aria-hidden
+                    />
+                    {labels[item.key]}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            <LanguageSwitcher />
-            <Button asChild size="sm" className="hidden xl:inline-flex">
-              <a href="#join">{labels.cta}</a>
+            <ThemeToggle light={onDark} />
+            <Button
+              asChild
+              size="sm"
+              variant={onDark ? "gold" : "primary"}
+              className="hidden xl:inline-flex"
+            >
+              <a href="#join">
+                <Sparkles aria-hidden />
+                {labels.cta}
+              </a>
             </Button>
             <button
               type="button"
-              className="inline-flex size-11 items-center justify-center rounded-full border border-forest/15 bg-ivory/80 text-forest backdrop-blur xl:hidden focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
+              className={cn(
+                "inline-flex size-11 items-center justify-center rounded-full border backdrop-blur xl:hidden focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none",
+                onDark
+                  ? "border-ivory/30 bg-ivory/10 text-ivory"
+                  : "border-forest/15 bg-ivory/80 text-forest",
+              )}
               aria-expanded={open}
               aria-controls={menuId}
               aria-label={open ? labels.closeMenu : labels.openMenu}
@@ -151,20 +194,27 @@ export function Navbar() {
       >
         <div className="flex h-full flex-col gap-8 px-6">
           <ul className="flex flex-col gap-1">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  className="block rounded-2xl px-4 py-3 font-heading text-2xl text-forest transition-colors hover:bg-beige/50 focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
-                  onClick={() => setOpen(false)}
-                >
-                  {labels[item.key]}
-                </a>
-              </li>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const Icon = item.icon;
+              return (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    className="flex items-center gap-3 rounded-2xl px-4 py-3 font-heading text-2xl text-forest transition-colors hover:bg-beige/50 focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
+                    onClick={() => setOpen(false)}
+                  >
+                    <span className="flex size-10 items-center justify-center rounded-xl bg-beige text-forest">
+                      <Icon className="size-5" aria-hidden />
+                    </span>
+                    {labels[item.key]}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
           <Button asChild size="lg" className="w-full">
             <a href="#join" onClick={() => setOpen(false)}>
+              <Sparkles aria-hidden />
               {labels.cta}
             </a>
           </Button>

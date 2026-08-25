@@ -28,6 +28,8 @@ export type Dictionary = {
     openMenu: string;
     closeMenu: string;
     skipToContent: string;
+    themeToDark: string;
+    themeToLight: string;
   };
   hero: {
     badge: string;

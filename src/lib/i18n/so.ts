@@ -13,6 +13,8 @@ export const so: Dictionary = {
     openMenu: "Fur liiska",
     closeMenu: "Xir liiska",
     skipToContent: "U gudub nuxurka",
+    themeToDark: "U beddel mawduuca madow",
+    themeToLight: "U beddel mawduuca iftiin",
   },
   hero: {
     badge: "Ku soo dhowow Hage Reading Club",

@@ -36,7 +36,7 @@ export function SectionHeading({
         id={id}
         className={cn(
           "font-heading text-3xl leading-tight font-semibold tracking-tight text-balance sm:text-4xl lg:text-5xl lg:leading-[1.15]",
-          light ? "text-ivory" : "text-forest",
+          light ? "text-ivory" : "text-forest dark:text-[#f4ede1]",
         )}
       >
         {title}

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Container } from "@/components/Container";
+import { LogoMark } from "@/components/Logo";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n/language-provider";
@@ -24,6 +25,9 @@ export function CTA() {
 
       <Container className="relative">
         <Reveal className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto mb-6 w-fit rounded-full bg-gold/20 p-1 ring-1 ring-gold/35">
+            <LogoMark size="lg" surface="dark" />
+          </div>
           <h2 className="font-heading text-3xl leading-tight font-semibold text-balance text-ivory sm:text-4xl lg:text-5xl">
             {t.cta.title}
           </h2>

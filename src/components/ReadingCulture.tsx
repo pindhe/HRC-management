@@ -11,7 +11,7 @@ export function ReadingCulture() {
     <section className="scroll-mt-24 bg-beige-warm/70 py-16 sm:py-20 lg:py-28">
       <Container>
         <Reveal>
-          <h2 className="font-heading mx-auto max-w-4xl text-center text-3xl leading-tight font-semibold text-balance text-forest sm:text-4xl lg:text-5xl">
+          <h2 className="font-heading mx-auto max-w-4xl text-center text-3xl leading-tight font-semibold text-balance text-forest dark:text-[#f4ede1] sm:text-4xl lg:text-5xl">
             {t.culture.title}
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-center text-base leading-relaxed text-muted sm:text-lg">

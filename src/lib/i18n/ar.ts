@@ -13,6 +13,8 @@ export const ar: Dictionary = {
     openMenu: "فتح القائمة",
     closeMenu: "إغلاق القائمة",
     skipToContent: "تخطي إلى المحتوى",
+    themeToDark: "التبديل إلى المظهر الداكن",
+    themeToLight: "التبديل إلى المظهر الفاتح",
   },
   hero: {
     badge: "مرحباً بكم في نادي هاجي للقراءة",

@@ -7,8 +7,8 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function OpenGraphImage() {
-  const logo = await readFile(join(process.cwd(), "public/logo.jpg"));
-  const src = `data:image/jpeg;base64,${logo.toString("base64")}`;
+  const logo = await readFile(join(process.cwd(), "public/logo.png"));
+  const src = `data:image/png;base64,${logo.toString("base64")}`;
 
   return new ImageResponse(
     (
@@ -38,7 +38,7 @@ export default async function OpenGraphImage() {
               height: 88,
               borderRadius: 999,
               overflow: "hidden",
-              background: "#ffffff",
+              background: "#000000",
             }}
           >
             <img src={src} alt="" width={88} height={88} />

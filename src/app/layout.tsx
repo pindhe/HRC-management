@@ -66,9 +66,9 @@ export const metadata: Metadata = {
       "Hage Reading Club is a community that encourages reading, knowledge sharing, meaningful discussions, and personal growth.",
   },
   icons: {
-    icon: [{ url: "/logo.jpg", type: "image/jpeg" }],
-    apple: "/logo.jpg",
-    shortcut: "/logo.jpg",
+    icon: [{ url: "/logo.png", type: "image/png" }],
+    apple: "/logo.png",
+    shortcut: "/logo.png",
   },
   robots: {
     index: true,
@@ -84,11 +84,12 @@ export const viewport: Viewport = {
 
 const localeBootstrap = `
 try {
-  var l = localStorage.getItem("hage-locale");
   var html = document.documentElement;
+  var l = localStorage.getItem("hage-locale");
   if (l === "ar") { html.lang = "ar"; html.dir = "rtl"; }
   else if (l === "en") { html.lang = "en"; html.dir = "ltr"; }
   else { html.lang = "so"; html.dir = "ltr"; }
+  if (localStorage.getItem("hage-theme") === "dark") html.classList.add("dark");
 } catch (e) {}
 `;
 
@@ -102,7 +103,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: localeBootstrap }} />
       </head>
-      <body className="flex min-h-full flex-col bg-ivory text-charcoal">
+      <body className="flex min-h-full flex-col bg-page text-charcoal dark:text-[#f4ede1]">
         <Providers>{children}</Providers>
       </body>
     </html>

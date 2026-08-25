@@ -18,7 +18,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-Default language is Somali. Use **SO | EN | AR** in the navbar to switch languages (Arabic uses RTL).
+Default language is Somali.
 
 ## Replace before launch
 

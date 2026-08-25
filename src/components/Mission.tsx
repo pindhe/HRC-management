@@ -2,6 +2,7 @@
 
 import { BookOpen, GraduationCap, Share2 } from "lucide-react";
 import { Container } from "@/components/Container";
+import { LogoMark } from "@/components/Logo";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { useI18n } from "@/lib/i18n/language-provider";
@@ -21,6 +22,9 @@ export function Mission() {
 
       <Container className="relative">
         <Reveal>
+          <div className="mb-6 flex justify-center">
+            <LogoMark size="md" surface="dark" />
+          </div>
           <SectionHeading
             title={t.mission.title}
             subtitle={t.mission.text}
