@@ -29,6 +29,9 @@ export function LanguageSwitcher({ className }: { className?: string }) {
               type="button"
               onClick={() => setLocale(code as Locale)}
               aria-pressed={selected}
+              aria-label={
+                code === "so" ? "Somali" : code === "en" ? "English" : "Arabic"
+              }
               className={cn(
                 "rounded-full px-2.5 py-1 transition-colors focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none",
                 selected
