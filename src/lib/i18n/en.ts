@@ -1,0 +1,232 @@
+import type { Dictionary } from "./types";
+
+export const en: Dictionary = {
+  nav: {
+    home: "Home",
+    about: "About",
+    whatWeDo: "What We Do",
+    mission: "Our Mission",
+    activities: "Activities",
+    join: "Join Us",
+    contact: "Contact",
+    cta: "Join Hage",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
+    skipToContent: "Skip to content",
+  },
+  hero: {
+    badge: "Welcome to Hage Reading Club",
+    title: "A Community Built Around Reading, Learning & Growth",
+    text: "Hage Reading Club brings together people who believe that reading can transform knowledge, ideas, and lives.",
+    primary: "Join the Club",
+    secondary: "Discover Hage",
+    imageAlt:
+      "Open books on a table in warm natural light, evoking a reading community",
+    floatQuote: "Read. Learn. Share. Grow.",
+    floatLabel: "Reading community",
+    floatCommunity: "Share knowledge",
+  },
+  about: {
+    title: "What is Hage Reading Club?",
+    text: "Hage Reading Club is a community created to encourage people to make reading a regular part of their lives. We bring readers together to explore books, exchange ideas, discuss important topics, and learn from one another.",
+    imageAlt: "Young people reading books and sharing ideas together",
+    highlights: [
+      {
+        title: "Read Together",
+        text: "We encourage members to read and explore books together.",
+      },
+      {
+        title: "Share Ideas",
+        text: "We create spaces where readers can exchange thoughts, opinions, and lessons.",
+      },
+      {
+        title: "Grow Together",
+        text: "We believe knowledge becomes more powerful when it is shared.",
+      },
+    ],
+  },
+  whatWeDo: {
+    title: "What We Do",
+    subtitle: "More than reading — we build a culture of learning.",
+    items: [
+      {
+        number: "01",
+        title: "Reading Together",
+        text: "We encourage members to read selected books together and stay consistent with their reading goals.",
+      },
+      {
+        number: "02",
+        title: "Book Discussions",
+        text: "We create meaningful conversations around books, ideas, lessons, and real-life experiences.",
+      },
+      {
+        number: "03",
+        title: "Knowledge Sharing",
+        text: "Members share useful ideas, insights, recommendations, and knowledge gained through reading.",
+      },
+      {
+        number: "04",
+        title: "Reading Challenges",
+        text: "We encourage members to set reading goals and develop a consistent reading habit.",
+      },
+      {
+        number: "05",
+        title: "Community Events",
+        text: "We organize reading sessions, discussions, learning events, and community activities.",
+      },
+      {
+        number: "06",
+        title: "Personal Growth",
+        text: "Reading is used as a tool for improving knowledge, critical thinking, communication, and personal development.",
+      },
+    ],
+  },
+  whyHage: {
+    title: "Why Hage?",
+    quote: "A reader today becomes a thinker tomorrow.",
+    points: [
+      {
+        title: "Build a Reading Habit",
+        text: "Turn reading from something occasional into a consistent habit.",
+      },
+      {
+        title: "Learn From Others",
+        text: "Discover different perspectives and ideas from other readers.",
+      },
+      {
+        title: "Think Deeper",
+        text: "Books introduce new ideas and help develop critical thinking.",
+      },
+      {
+        title: "Grow Together",
+        text: "Join a community where learning and personal development are encouraged.",
+      },
+    ],
+  },
+  mission: {
+    title: "Our Mission",
+    text: "Our mission is to build a strong culture of reading and learning by bringing people together around books, knowledge, meaningful conversations, and personal growth.",
+    pillars: [
+      {
+        title: "Read",
+        text: "Discover books and develop a consistent reading habit.",
+      },
+      {
+        title: "Learn",
+        text: "Gain knowledge and explore new perspectives.",
+      },
+      {
+        title: "Share",
+        text: "Share ideas, experiences, and lessons with others.",
+      },
+    ],
+  },
+  activities: {
+    title: "What Happens at Hage?",
+    items: [
+      {
+        title: "Reading Sessions",
+        text: "Members come together to read and discuss selected books.",
+      },
+      {
+        title: "Book Conversations",
+        text: "Open discussions about ideas, lessons, characters, and themes.",
+      },
+      {
+        title: "Knowledge Sessions",
+        text: "Members share useful knowledge and insights.",
+      },
+      {
+        title: "Community Meetups",
+        text: "Readers connect, communicate, and build relationships.",
+      },
+      {
+        title: "Reading Challenges",
+        text: "Members challenge themselves to read more consistently.",
+      },
+    ],
+  },
+  culture: {
+    title: "We Want Reading to Become a Culture, Not Just a Habit.",
+    text: "We believe reading should become part of everyday life. Hage exists to make reading more social, enjoyable, meaningful, and accessible.",
+    stats: [
+      { number: "01", label: "Community" },
+      { number: "02", label: "Knowledge" },
+      { number: "03", label: "Growth" },
+      { number: "04", label: "Impact" },
+    ],
+  },
+  community: {
+    title: "A Community for Curious Minds",
+    text: "Hage is for people who are curious, willing to learn, and excited to share ideas. Whether you read one book a month or several books a year, there is a place for you here.",
+    members: [
+      { role: "Student", imageAlt: "Student" },
+      { role: "Developer", imageAlt: "Developer" },
+      { role: "Entrepreneur", imageAlt: "Entrepreneur" },
+      { role: "Teacher", imageAlt: "Teacher" },
+      { role: "Young professional", imageAlt: "Young professional" },
+      { role: "Book lover", imageAlt: "Book lover" },
+    ],
+  },
+  howToJoin: {
+    title: "How to Become Part of Hage",
+    steps: [
+      {
+        number: "01",
+        title: "Discover",
+        text: "Learn about Hage and what we do.",
+      },
+      {
+        number: "02",
+        title: "Join",
+        text: "Become part of the reading community.",
+      },
+      {
+        number: "03",
+        title: "Grow",
+        text: "Read, discuss, learn, and grow together.",
+      },
+    ],
+    cta: "Join Hage Reading Club",
+  },
+  cta: {
+    title: "Ready to Make Reading Part of Your Journey?",
+    text: "Join a community where books become conversations, conversations become ideas, and ideas inspire growth.",
+    primary: "Join Hage",
+    secondary: "Learn More",
+  },
+  contact: {
+    title: "Connect With Hage",
+    text: "Have a question, idea, or want to collaborate with Hage Reading Club? We'd love to hear from you.",
+    email: "Email",
+    phone: "Phone",
+    facebook: "Facebook",
+    instagram: "Instagram",
+    whatsapp: "WhatsApp",
+    form: {
+      name: "Full Name",
+      email: "Email",
+      subject: "Subject",
+      message: "Message",
+      submit: "Send Message",
+      sending: "Sending...",
+      success: "Thank you. Your message has been received — we will be in touch.",
+      error: "Please complete the required fields before sending.",
+      nameError: "Please enter your name.",
+      emailError: "Please enter a valid email address.",
+      subjectError: "Please enter a subject.",
+      messageError: "Please write a message.",
+    },
+  },
+  footer: {
+    description: "A community for reading, learning, sharing, and growth.",
+    explore: "Explore",
+    community: "Community",
+    follow: "Follow Us",
+    events: "Events",
+    discussions: "Discussions",
+    copyright: "© 2026 Hage Reading Club. All rights reserved.",
+    madeWith: "Made with knowledge & purpose.",
+    linkedin: "LinkedIn",
+  },
+};
