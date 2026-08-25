@@ -65,6 +65,11 @@ export const metadata: Metadata = {
     description:
       "Hage Reading Club is a community that encourages reading, knowledge sharing, meaningful discussions, and personal growth.",
   },
+  icons: {
+    icon: [{ url: "/logo.jpg", type: "image/jpeg" }],
+    apple: "/logo.jpg",
+    shortcut: "/logo.jpg",
+  },
   robots: {
     index: true,
     follow: true,

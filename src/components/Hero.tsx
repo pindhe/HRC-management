@@ -43,6 +43,13 @@ export function Hero() {
           >
             {t.hero.title}
           </motion.h1>
+          <motion.span
+            initial={reduce ? false : { opacity: 0, scaleX: 0.6 }}
+            animate={{ opacity: 1, scaleX: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-5 block h-px w-24 origin-start bg-gold"
+            aria-hidden
+          />
 
           <motion.p
             initial={reduce ? false : { opacity: 0, y: 20 }}

@@ -40,7 +40,13 @@ export function Footer() {
       <Container className="py-14 lg:py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="sm:col-span-2 lg:col-span-1">
-            <Logo light />
+            <a
+              href="#home"
+              aria-label="Hage Reading Club"
+              className="inline-flex rounded-lg focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
+            >
+              <Logo light />
+            </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ivory/70">
               {t.footer.description}
             </p>

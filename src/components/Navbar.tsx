@@ -92,8 +92,12 @@ export function Navbar() {
           className="mx-auto flex h-[4.25rem] w-full max-w-7xl items-center justify-between px-5 sm:px-6 lg:h-[4.75rem] lg:px-8"
           aria-label="Primary"
         >
-          <a href="#home" className="rounded-lg focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none">
-            <Logo />
+          <a
+            href="#home"
+            aria-label="Hage Reading Club"
+            className="rounded-lg focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
+          >
+            <Logo priority />
           </a>
 
           <ul className="hidden items-center gap-0.5 xl:flex">
@@ -105,7 +109,7 @@ export function Navbar() {
                   className={cn(
                     "rounded-full px-3 py-2 text-[13px] font-medium transition-colors focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none",
                     active === item.href
-                      ? "text-forest"
+                      ? "bg-beige/70 text-forest"
                       : "text-muted hover:text-forest",
                   )}
                 >
