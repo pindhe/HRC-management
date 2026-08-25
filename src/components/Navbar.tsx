@@ -96,7 +96,7 @@ export function Navbar() {
             <Logo />
           </a>
 
-          <ul className="hidden items-center gap-1 xl:flex">
+          <ul className="hidden items-center gap-0.5 xl:flex">
             {NAV_ITEMS.map((item) => (
               <li key={item.href}>
                 <a
@@ -115,23 +115,22 @@ export function Navbar() {
             ))}
           </ul>
 
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="flex items-center gap-2 sm:gap-3">
             <LanguageSwitcher />
-            <Button asChild size="sm">
+            <Button asChild size="sm" className="hidden xl:inline-flex">
               <a href="#join">{labels.cta}</a>
             </Button>
-          </div>
-
-          <button
-            type="button"
-            className="inline-flex size-11 items-center justify-center rounded-full border border-forest/15 bg-ivory/80 text-forest backdrop-blur md:hidden focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
+            <button
+              type="button"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-forest/15 bg-ivory/80 text-forest backdrop-blur xl:hidden focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
             aria-expanded={open}
             aria-controls={menuId}
             aria-label={open ? labels.closeMenu : labels.openMenu}
             onClick={() => setOpen((value) => !value)}
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
+            </button>
+          </div>
         </nav>
       </header>
 
@@ -139,7 +138,7 @@ export function Navbar() {
         id={menuId}
         hidden={!open}
         className={cn(
-          "fixed inset-0 z-40 bg-ivory/95 pt-24 backdrop-blur-xl md:hidden",
+          "fixed inset-0 z-40 bg-ivory/95 pt-24 backdrop-blur-xl xl:hidden",
           open ? "block" : "hidden",
         )}
         role="dialog"
