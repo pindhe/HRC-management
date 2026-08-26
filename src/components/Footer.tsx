@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUp, Mail, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { Container } from "@/components/Container";
 import { Logo } from "@/components/Logo";
 import {
@@ -153,16 +153,7 @@ export function Footer() {
 
         <div className="mt-14 flex flex-col gap-4 border-t border-ivory/10 pt-6 text-sm text-ivory/50 sm:flex-row sm:items-center sm:justify-between">
           <p>{t.footer.copyright}</p>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <p>{t.footer.madeWith}</p>
-            <a
-              href="#home"
-              className="inline-flex items-center gap-1.5 text-ivory/70 transition-colors hover:text-gold focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
-            >
-              {t.footer.backToTop}
-              <ArrowUp className="size-3.5" aria-hidden />
-            </a>
-          </div>
+          <p>{t.footer.madeWith}</p>
         </div>
       </Container>
     </footer>

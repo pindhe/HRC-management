@@ -4,7 +4,7 @@ export type Role = (typeof roles)[number];
 
 export const ROLE_HOME: Record<Role, string> = {
   admin: "/admin",
-  member: "/home",
+  member: "/member",
   cashier: "/cashier",
 };
 
@@ -19,6 +19,7 @@ export function parseRole(value: string | undefined): Role | null {
 export function canAccess(pathname: string, role: Role): boolean {
   if (pathname.startsWith("/admin")) return role === "admin";
   if (pathname.startsWith("/cashier")) return role === "cashier" || role === "admin";
-  if (pathname.startsWith("/home")) return role === "member" || role === "admin";
+  if (pathname.startsWith("/member")) return role === "member" || role === "admin";
+  if (pathname.startsWith("/home")) return role === "admin";
   return true;
 }

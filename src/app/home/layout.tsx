@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 
 export default async function HomeLayout({ children }: { children: ReactNode }) {
   const role = parseRole((await cookies()).get(SESSION_COOKIE)?.value);
-  if (role !== "member" && role !== "admin") {
+  if (role !== "admin") {
     redirect(role ? ROLE_HOME[role] : "/");
   }
   return children;

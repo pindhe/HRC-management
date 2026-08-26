@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils";
 
 const markSizes = {
   sm: { box: "size-9", sizes: "36px" },
-  md: { box: "size-10", sizes: "40px" },
-  lg: { box: "size-16 sm:size-20", sizes: "80px" },
+  md: { box: "size-11", sizes: "44px" },
+  lg: { box: "size-[4.5rem] sm:size-20", sizes: "80px" },
 } as const;
 
 export function LogoMark({
@@ -30,8 +30,10 @@ export function LogoMark({
   return (
     <span
       className={cn(
-        "relative block aspect-square shrink-0 overflow-hidden rounded-full shadow-[0_8px_20px_-10px_rgba(25,97,194,0.65)] ring-2 ring-logo-blue/70",
-        dark ? "bg-black" : "bg-white",
+        "relative block aspect-square shrink-0 overflow-hidden rounded-full",
+        dark
+          ? "bg-black ring-1 ring-ivory/18"
+          : "bg-white ring-1 ring-forest/12",
         mark.box,
         className,
       )}
@@ -41,7 +43,7 @@ export function LogoMark({
         alt=""
         fill
         sizes={mark.sizes}
-        className="object-cover"
+        className="object-contain p-[7%]"
         priority={priority}
       />
     </span>
@@ -51,38 +53,51 @@ export function LogoMark({
 export function Logo({
   compact = false,
   light = false,
+  stacked = false,
   priority = false,
   surface = "auto",
   className,
 }: {
   compact?: boolean;
   light?: boolean;
+  stacked?: boolean;
   priority?: boolean;
   surface?: "auto" | "light" | "dark";
   className?: string;
 }) {
   return (
-    <span className={cn("flex items-center gap-2.5", className)}>
-      <LogoMark size="md" priority={priority} surface={surface} />
-      <span className="leading-tight">
+    <span
+      aria-label={site.name}
+      className={cn(
+        "flex min-w-0",
+        stacked ? "flex-col items-center gap-3.5 text-center" : "items-center gap-3",
+        className,
+      )}
+    >
+      <LogoMark
+        size={stacked ? "lg" : compact ? "sm" : "md"}
+        priority={priority}
+        surface={surface}
+      />
+      <span className={cn("min-w-0 leading-none", stacked && "text-center")}>
         <span
           className={cn(
-            "font-heading block text-lg font-semibold tracking-[0.18em]",
+            "font-heading block font-semibold tracking-[0.14em]",
+            stacked ? "text-3xl sm:text-4xl" : compact ? "text-[1.05rem]" : "text-xl",
             light ? "text-ivory" : "text-forest",
           )}
         >
-          HAGE
+          {site.shortName}
         </span>
-        {!compact ? (
-          <span
-            className={cn(
-              "block text-[11px] font-medium tracking-[0.16em] uppercase",
-              light ? "text-ivory/70" : "text-muted",
-            )}
-          >
-            Reading Club
-          </span>
-        ) : null}
+        <span
+          className={cn(
+            "mt-1 block font-medium tracking-[0.22em] uppercase",
+            stacked ? "text-[11px] sm:text-xs" : "text-[9px]",
+            light ? "text-gold" : "text-forest-mid dark:text-gold",
+          )}
+        >
+          Reading Club
+        </span>
       </span>
     </span>
   );

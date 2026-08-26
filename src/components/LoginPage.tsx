@@ -9,11 +9,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { writeSession } from "@/lib/auth";
-import { demoUsers, findDemoUser } from "@/lib/demo-users";
+import { findDemoUser } from "@/lib/demo-users";
 import { useI18n } from "@/lib/i18n/language-provider";
 import { images } from "@/lib/images";
 import { ROLE_HOME } from "@/lib/roles";
-import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 function isValidEmail(value: string) {
@@ -65,7 +64,7 @@ export function LoginPage() {
 
     setErrors({});
     setSubmitting(true);
-    writeSession(user.role, remember);
+    writeSession(user.role, remember, user.email);
     window.location.assign(ROLE_HOME[user.role]);
   }
 
@@ -85,21 +84,21 @@ export function LoginPage() {
           )}
         />
       ))}
-      <div className="absolute inset-0 bg-forest-deep/72" />
+      <div className="absolute inset-0 bg-forest-deep/70" />
       <div className="pattern-overlay pointer-events-none absolute inset-0 opacity-25" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-forest-deep/80 via-forest-deep/45 to-forest-deep/30" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-forest-deep/40 via-transparent to-forest-deep/70" />
 
       <div className="relative z-10 grid min-h-[100svh] lg:grid-cols-2">
-        <section className="hidden flex-col justify-between px-10 py-12 lg:flex xl:px-16">
-          <Logo light surface="dark" priority />
-          <div className="max-w-lg">
-            <p className="font-heading text-4xl leading-snug text-balance text-ivory xl:text-5xl">
+        <section className="hidden min-h-[100svh] flex-col items-center px-10 py-10 text-center lg:flex xl:px-16">
+          <Logo light surface="dark" stacked priority />
+          <div className="flex flex-1 flex-col items-center justify-center">
+            <p className="font-heading max-w-xl text-4xl leading-snug text-balance text-ivory xl:text-5xl">
               {t.login.quote}
             </p>
             <p className="mt-5 text-sm tracking-[0.18em] text-gold uppercase">
               {t.login.quoteBy}
             </p>
-            <div className="mt-10 flex gap-2">
+            <div className="mt-10 flex justify-center gap-2">
               {images.login.map((src, i) => (
                 <button
                   key={src}
@@ -119,17 +118,18 @@ export function LoginPage() {
               ))}
             </div>
           </div>
+          <p className="text-xs tracking-wide text-ivory/55">{t.footer.copyright}</p>
         </section>
 
         <section className="flex items-center justify-center px-5 py-12 sm:px-8">
           <div className="login-panel w-full max-w-[26.5rem] rounded-[2rem] border border-ivory/20 bg-ivory/95 p-7 shadow-[0_28px_80px_-24px_rgba(0,0,0,0.55)] backdrop-blur-md sm:p-9">
-            <div className="lg:hidden">
-              <Logo surface="light" priority />
+            <div className="flex justify-center lg:hidden">
+              <Logo surface="light" stacked priority />
             </div>
-            <h1 className="font-heading mt-6 text-3xl text-forest lg:mt-0">
+            <h1 className="font-heading mt-6 text-center text-3xl text-forest lg:mt-0 lg:text-start">
               {t.login.title}
             </h1>
-            <p className="mt-2 text-sm leading-relaxed text-muted">
+            <p className="mt-2 text-center text-sm leading-relaxed text-muted lg:text-start">
               {t.login.subtitle}
             </p>
 
@@ -222,36 +222,8 @@ export function LoginPage() {
               </Button>
             </form>
 
-            <div className="mt-6 rounded-2xl border border-forest/10 bg-beige/50 p-4">
-              <p className="text-[11px] font-semibold tracking-[0.16em] text-forest uppercase">
-                {t.login.demoAccounts}
-              </p>
-              <ul className="mt-3 space-y-2">
-                {demoUsers.map((user) => (
-                  <li key={user.email}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setEmail(user.email);
-                        setPassword(user.password);
-                        setErrors({});
-                      }}
-                      className="w-full rounded-xl px-2 py-1.5 text-start transition-colors hover:bg-ivory focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
-                    >
-                      <span className="block text-xs font-semibold text-forest-deep">
-                        {t.roles[user.role]}
-                      </span>
-                      <span className="block truncate text-[11px] text-muted">
-                        {user.email} · {user.password}
-                      </span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
             <p className="mt-5 text-center text-xs tracking-wide text-muted">
-              {site.name}
+              {t.footer.copyright}
             </p>
           </div>
         </section>

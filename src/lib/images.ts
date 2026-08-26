@@ -8,6 +8,6 @@ export const images = {
     "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=2200&q=80",
     "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=2200&q=80",
     "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=2200&q=80",
-    "https://images.unsplash.com/photo-14565130808-af98c95b72e7?auto=format&fit=crop&w=2200&q=80",
+    "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=2200&q=80",
   ],
 } as const;
