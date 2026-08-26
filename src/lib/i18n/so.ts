@@ -246,7 +246,8 @@ export const so: Dictionary = {
     quote: "Akhriste maanta wuxuu noqdaa fikirale berri.",
     quoteBy: "Hage Reading Club",
     imageAlt: "Buugaag iyo goobo akhris oo Hage Reading Club ah",
-    roleError: "Fadlan dooro doorkaaga.",
+    invalidCredentials: "Iimaylka ama furaha waa khaldan.",
+    demoAccounts: "Akoonada tijaabada",
   },
   roles: {
     label: "Doorka",

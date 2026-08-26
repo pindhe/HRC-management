@@ -2,16 +2,17 @@
 
 import { FormEvent, useEffect, useId, useState } from "react";
 import { useReducedMotion } from "framer-motion";
-import { Eye, EyeOff, Shield, UserRound, Wallet } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { writeSession } from "@/lib/auth";
+import { demoUsers, findDemoUser } from "@/lib/demo-users";
 import { useI18n } from "@/lib/i18n/language-provider";
 import { images } from "@/lib/images";
-import { roles, ROLE_HOME, type Role } from "@/lib/roles";
+import { ROLE_HOME } from "@/lib/roles";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -19,31 +20,23 @@ function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
-const roleIcons = {
-  admin: Shield,
-  member: UserRound,
-  cashier: Wallet,
-} as const;
-
 export function LoginPage() {
   const { t } = useI18n();
   const reduce = useReducedMotion();
   const emailId = useId();
   const passwordId = useId();
   const rememberId = useId();
-  const roleGroupId = useId();
 
   const [index, setIndex] = useState(0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<Role | "">("");
   const [remember, setRemember] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<{
     email?: string;
     password?: string;
-    role?: string;
+    form?: string;
   }>({});
 
   useEffect(() => {
@@ -56,16 +49,24 @@ export function LoginPage() {
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const next: { email?: string; password?: string; role?: string } = {};
+    const next: { email?: string; password?: string; form?: string } = {};
     if (!isValidEmail(email.trim())) next.email = t.login.emailError;
     if (password.length < 8) next.password = t.login.passwordError;
-    if (!role) next.role = t.login.roleError;
-    setErrors(next);
-    if (Object.keys(next).length > 0) return;
+    if (Object.keys(next).length > 0) {
+      setErrors(next);
+      return;
+    }
 
+    const user = findDemoUser(email, password);
+    if (!user) {
+      setErrors({ form: t.login.invalidCredentials });
+      return;
+    }
+
+    setErrors({});
     setSubmitting(true);
-    writeSession(role, remember);
-    window.location.assign(ROLE_HOME[role]);
+    writeSession(user.role, remember);
+    window.location.assign(ROLE_HOME[user.role]);
   }
 
   return (
@@ -133,6 +134,11 @@ export function LoginPage() {
             </p>
 
             <form className="mt-8 space-y-5" onSubmit={onSubmit} noValidate>
+              {errors.form ? (
+                <p className="rounded-xl bg-red-50 px-3 py-2 text-xs text-red-700" role="alert">
+                  {errors.form}
+                </p>
+              ) : null}
               <div className="space-y-2">
                 <Label htmlFor={emailId}>{t.login.email}</Label>
                 <Input
@@ -191,67 +197,6 @@ export function LoginPage() {
                 ) : null}
               </div>
 
-              <fieldset className="space-y-2">
-                <legend id={roleGroupId} className="text-sm font-medium text-forest-deep">
-                  {t.roles.choose}
-                </legend>
-                <div
-                  role="radiogroup"
-                  aria-labelledby={roleGroupId}
-                  className="grid grid-cols-3 gap-2"
-                >
-                  {roles.map((value) => {
-                    const Icon = roleIcons[value];
-                    const selected = role === value;
-                    return (
-                      <label
-                        key={value}
-                        className={cn(
-                          "flex cursor-pointer flex-col items-center gap-1.5 rounded-2xl border px-2 py-3 text-center transition-all",
-                          selected
-                            ? "border-gold bg-gold/15 ring-1 ring-gold"
-                            : "border-forest/15 bg-ivory hover:border-gold/60",
-                        )}
-                      >
-                        <input
-                          type="radio"
-                          name="role"
-                          value={value}
-                          checked={selected}
-                          onChange={() => setRole(value)}
-                          className="sr-only"
-                        />
-                        <span
-                          className={cn(
-                            "flex size-8 items-center justify-center rounded-full",
-                            selected
-                              ? "bg-gold text-forest-deep"
-                              : "bg-beige text-forest",
-                          )}
-                        >
-                          <Icon className="size-4" aria-hidden />
-                        </span>
-                        <span className="text-[11px] font-semibold text-forest-deep">
-                          {t.roles[value]}
-                        </span>
-                      </label>
-                    );
-                  })}
-                </div>
-                {role ? (
-                  <p className="text-xs text-muted">
-                    {role === "admin"
-                      ? t.roles.adminHint
-                      : role === "cashier"
-                        ? t.roles.cashierHint
-                        : t.roles.memberHint}
-                  </p>
-                ) : null}
-                {errors.role ? (
-                  <p className="text-xs text-red-700">{errors.role}</p>
-                ) : null}
-              </fieldset>
-
               <label
                 htmlFor={rememberId}
                 className="flex cursor-pointer items-center gap-2.5 text-sm text-forest-deep"
@@ -277,7 +222,35 @@ export function LoginPage() {
               </Button>
             </form>
 
-            <p className="mt-8 text-center text-xs tracking-wide text-muted">
+            <div className="mt-6 rounded-2xl border border-forest/10 bg-beige/50 p-4">
+              <p className="text-[11px] font-semibold tracking-[0.16em] text-forest uppercase">
+                {t.login.demoAccounts}
+              </p>
+              <ul className="mt-3 space-y-2">
+                {demoUsers.map((user) => (
+                  <li key={user.email}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEmail(user.email);
+                        setPassword(user.password);
+                        setErrors({});
+                      }}
+                      className="w-full rounded-xl px-2 py-1.5 text-start transition-colors hover:bg-ivory focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
+                    >
+                      <span className="block text-xs font-semibold text-forest-deep">
+                        {t.roles[user.role]}
+                      </span>
+                      <span className="block truncate text-[11px] text-muted">
+                        {user.email} · {user.password}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <p className="mt-5 text-center text-xs tracking-wide text-muted">
               {site.name}
             </p>
           </div>

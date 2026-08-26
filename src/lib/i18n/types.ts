@@ -137,7 +137,8 @@ export type Dictionary = {
     quote: string;
     quoteBy: string;
     imageAlt: string;
-    roleError: string;
+    invalidCredentials: string;
+    demoAccounts: string;
   };
   roles: {
     label: string;

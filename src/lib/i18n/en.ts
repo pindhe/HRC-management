@@ -246,7 +246,8 @@ export const en: Dictionary = {
     quote: "A reader today becomes a thinker tomorrow.",
     quoteBy: "Hage Reading Club",
     imageAlt: "Books and reading spaces at Hage Reading Club",
-    roleError: "Please choose a role.",
+    invalidCredentials: "Email or password is incorrect.",
+    demoAccounts: "Demo accounts",
   },
   roles: {
     label: "Role",

@@ -245,7 +245,8 @@ export const ar: Dictionary = {
     quote: "قارئ اليوم هو مفكّر الغد.",
     quoteBy: "نادي هاجي للقراءة",
     imageAlt: "كتب ومساحات قراءة في نادي هاجي للقراءة",
-    roleError: "يرجى اختيار الدور.",
+    invalidCredentials: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+    demoAccounts: "حسابات تجريبية",
   },
   roles: {
     label: "الدور",
