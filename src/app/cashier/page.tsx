@@ -12,9 +12,9 @@ export const metadata: Metadata = {
 
 export default async function CashierPage() {
   const role = parseRole((await cookies()).get(SESSION_COOKIE)?.value);
-  if (role !== "cashier" && role !== "admin") {
+  if (!role || (role !== "cashier" && role !== "admin")) {
     redirect(role ? ROLE_HOME[role] : "/");
   }
 
-  return <CashierDashboard role={role === "admin" ? "admin" : "cashier"} />;
+  return <CashierDashboard role={role} />;
 }

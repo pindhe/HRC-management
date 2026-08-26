@@ -15,7 +15,7 @@ import type { Role } from "@/lib/roles";
 
 const methods = ["cash", "transfer", "mobile"] as const;
 
-export function CashierDashboard() {
+export function CashierDashboard({ role = "cashier" }: { role?: Role }) {
   const { t } = useI18n();
   const memberId = useId();
   const amountId = useId();
@@ -55,7 +55,7 @@ export function CashierDashboard() {
   }
 
   return (
-    <AppShell role="cashier" title={t.cashier.title}>
+    <AppShell role={role} title={t.cashier.title}>
       <div className="max-w-3xl">
         <h1 className="font-heading text-3xl text-forest sm:text-4xl">
           {t.cashier.title}

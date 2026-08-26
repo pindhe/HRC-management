@@ -90,6 +90,10 @@ body {
   color: #57534e;
 }
 
+.dark .login-panel legend {
+  color: #0d2818;
+}
+
 body {
   font-family: var(--font-sans);
   min-height: 100%;

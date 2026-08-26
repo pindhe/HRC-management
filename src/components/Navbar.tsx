@@ -15,8 +15,9 @@ import {
 import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
-import { clearSession } from "@/lib/auth";
+import { clearSession, readClientRole } from "@/lib/auth";
 import { useI18n } from "@/lib/i18n/language-provider";
+import type { Role } from "@/lib/roles";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 
@@ -33,12 +34,17 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("#home");
+  const [role, setRole] = useState<Role | null>(null);
   const menuId = useId();
 
   function logout() {
     clearSession();
     window.location.assign("/");
   }
+
+  useEffect(() => {
+    setRole(readClientRole());
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -112,17 +118,29 @@ export function Navbar() {
           className="mx-auto flex h-[4.25rem] w-full max-w-7xl items-center justify-between px-5 sm:px-6 lg:h-[4.75rem] lg:px-8"
           aria-label="Primary"
         >
-          <a
-            href="#home"
-            aria-label="Hage Reading Club"
-            className="rounded-lg focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
-          >
-            <Logo
-              priority
-              light={darkChrome}
-              surface={darkChrome ? "dark" : "light"}
-            />
-          </a>
+          <div className="flex items-center">
+            <a
+              href="#home"
+              aria-label="Hage Reading Club"
+              className="rounded-lg focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
+            >
+              <Logo
+                priority
+                light={darkChrome}
+                surface={darkChrome ? "dark" : "light"}
+              />
+            </a>
+            {role ? (
+              <span
+                className={cn(
+                  "ms-3 hidden rounded-full px-2.5 py-1 text-[10px] font-semibold tracking-[0.16em] uppercase sm:inline-flex",
+                  darkChrome ? "bg-gold/20 text-gold" : "bg-beige text-forest",
+                )}
+              >
+                {t.roles[role]}
+              </span>
+            ) : null}
+          </div>
 
           <ul className="hidden items-center gap-0.5 xl:flex">
             {NAV_ITEMS.map((item) => {
