@@ -25,22 +25,13 @@ export function About() {
           <div className="absolute -start-3 -top-3 h-24 w-24 rounded-3xl border border-gold/50 sm:-start-5 sm:-top-5 sm:h-32 sm:w-32" aria-hidden />
           <div className="relative overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-28px_rgba(27,67,50,0.45)]">
             <Image
-              src={images.about}
+              src={images.club}
               alt={t.about.imageAlt}
               width={1400}
               height={1000}
-              className="aspect-[4/3] w-full object-cover"
+              className="aspect-[4/3] w-full object-cover object-[center_20%]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-forest-deep/25 via-transparent to-transparent" />
-          </div>
-          <div className="absolute -end-2 -bottom-8 hidden w-[46%] overflow-hidden rounded-3xl border-4 border-ivory shadow-xl sm:block dark:border-page">
-            <Image
-              src={images.aboutBooks}
-              alt=""
-              width={900}
-              height={700}
-              className="aspect-[4/3] w-full object-cover"
-            />
           </div>
           <div className="absolute start-4 bottom-4 rounded-2xl bg-ivory/90 p-2 shadow-lg backdrop-blur-md sm:start-6 sm:bottom-6">
             <LogoMark size="sm" surface={theme === "dark" ? "dark" : "light"} />

@@ -1,27 +1,18 @@
 "use client";
 
-import Image from "next/image";
+import { ClubBackdrop } from "@/components/ClubBackdrop";
 import { Container } from "@/components/Container";
 import { LogoMark } from "@/components/Logo";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n/language-provider";
-import { images } from "@/lib/images";
 
 export function CTA() {
   const { t } = useI18n();
 
   return (
     <section id="join" className="relative scroll-mt-24 overflow-hidden py-20 sm:py-24 lg:py-32">
-      <Image
-        src={images.cta}
-        alt=""
-        fill
-        sizes="100vw"
-        className="object-cover"
-      />
-      <div className="absolute inset-0 bg-forest-deep/80" />
-      <div className="pattern-overlay pointer-events-none absolute inset-0 opacity-20" />
+      <ClubBackdrop alt="" strength="medium" />
 
       <Container className="relative">
         <Reveal className="mx-auto max-w-3xl text-center">

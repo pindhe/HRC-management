@@ -1,9 +1,8 @@
 "use client";
 
-import { FormEvent, useEffect, useId, useState } from "react";
-import { useReducedMotion } from "framer-motion";
+import { FormEvent, useId, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import Image from "next/image";
+import { ClubBackdrop } from "@/components/ClubBackdrop";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,9 +10,7 @@ import { Label } from "@/components/ui/label";
 import { writeSession } from "@/lib/auth";
 import { findDemoUser } from "@/lib/demo-users";
 import { useI18n } from "@/lib/i18n/language-provider";
-import { images } from "@/lib/images";
 import { ROLE_HOME } from "@/lib/roles";
-import { cn } from "@/lib/utils";
 
 function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -21,12 +18,10 @@ function isValidEmail(value: string) {
 
 export function LoginPage() {
   const { t } = useI18n();
-  const reduce = useReducedMotion();
   const emailId = useId();
   const passwordId = useId();
   const rememberId = useId();
 
-  const [index, setIndex] = useState(0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(true);
@@ -37,14 +32,6 @@ export function LoginPage() {
     password?: string;
     form?: string;
   }>({});
-
-  useEffect(() => {
-    if (reduce) return;
-    const timer = window.setInterval(() => {
-      setIndex((current) => (current + 1) % images.login.length);
-    }, 7000);
-    return () => window.clearInterval(timer);
-  }, [reduce]);
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -70,53 +57,18 @@ export function LoginPage() {
 
   return (
     <main className="relative isolate min-h-full flex-1 overflow-hidden">
-      {images.login.map((src, i) => (
-        <Image
-          key={src}
-          src={src}
-          alt={i === 0 ? t.login.imageAlt : ""}
-          fill
-          priority={i === 0}
-          sizes="100vw"
-          className={cn(
-            "object-cover object-center transition-opacity duration-[1400ms] ease-in-out",
-            i === index ? "opacity-100" : "opacity-0",
-          )}
-        />
-      ))}
-      <div className="absolute inset-0 bg-forest-deep/70" />
-      <div className="pattern-overlay pointer-events-none absolute inset-0 opacity-25" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-forest-deep/40 via-transparent to-forest-deep/70" />
+      <ClubBackdrop alt={t.login.imageAlt} priority strength="medium" />
 
       <div className="relative z-10 grid min-h-[100svh] lg:grid-cols-2">
         <section className="hidden min-h-[100svh] flex-col items-center px-10 py-10 text-center lg:flex xl:px-16">
           <Logo light surface="dark" stacked priority />
           <div className="flex flex-1 flex-col items-center justify-center">
-            <p className="font-heading max-w-xl text-4xl leading-snug text-balance text-ivory xl:text-5xl">
+            <p className="font-heading max-w-xl text-4xl leading-snug text-balance text-ivory drop-shadow-[0_8px_24px_rgba(13,40,24,0.7)] xl:text-5xl">
               {t.login.quote}
             </p>
             <p className="mt-5 text-sm tracking-[0.18em] text-gold uppercase">
               {t.login.quoteBy}
             </p>
-            <div className="mt-10 flex justify-center gap-2">
-              {images.login.map((src, i) => (
-                <button
-                  key={src}
-                  type="button"
-                  onClick={() => setIndex(i)}
-                  aria-label={`${t.login.imageAlt} ${i + 1}`}
-                  aria-current={i === index}
-                  className={cn(
-                    "relative h-16 w-24 overflow-hidden rounded-xl ring-2 transition-all focus-visible:ring-gold focus-visible:outline-none",
-                    i === index
-                      ? "ring-gold opacity-100"
-                      : "ring-ivory/20 opacity-70 hover:opacity-100",
-                  )}
-                >
-                  <Image src={src} alt="" fill sizes="96px" className="object-cover" />
-                </button>
-              ))}
-            </div>
           </div>
           <p className="text-xs tracking-wide text-ivory/55">{t.footer.copyright}</p>
         </section>
