@@ -4,6 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useSyncExternalStore,
   type ReactNode,
@@ -11,6 +12,7 @@ import {
 import { ar } from "./ar";
 import { en } from "./en";
 import { so } from "./so";
+import { LOCALE_COOKIE, writeClientCookie } from "@/lib/prefs";
 import {
   defaultLocale,
   localeMeta,
@@ -60,8 +62,20 @@ function emit() {
   listeners.forEach((listener) => listener());
 }
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const locale = useSyncExternalStore(subscribe, getStoredLocale, () => defaultLocale);
+export function LanguageProvider({
+  children,
+  initialLocale = defaultLocale,
+}: {
+  children: ReactNode;
+  initialLocale?: Locale;
+}) {
+  const locale = useSyncExternalStore(subscribe, getStoredLocale, () => initialLocale);
+
+  useEffect(() => {
+    const stored = getStoredLocale();
+    writeClientCookie(LOCALE_COOKIE, stored);
+    applyDocumentLocale(stored);
+  }, []);
 
   const setLocale = useCallback((next: Locale) => {
     try {
@@ -69,6 +83,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     } catch {
       /* ignore quota / private mode */
     }
+    writeClientCookie(LOCALE_COOKIE, next);
     applyDocumentLocale(next);
     emit();
   }, []);

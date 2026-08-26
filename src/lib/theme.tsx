@@ -4,10 +4,12 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useSyncExternalStore,
   type ReactNode,
 } from "react";
+import { THEME_COOKIE, writeClientCookie } from "@/lib/prefs";
 
 export type Theme = "light" | "dark";
 
@@ -44,8 +46,20 @@ function emit() {
   listeners.forEach((listener) => listener());
 }
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  const theme = useSyncExternalStore(subscribe, getStoredTheme, () => "light");
+export function ThemeProvider({
+  children,
+  initialTheme = "light",
+}: {
+  children: ReactNode;
+  initialTheme?: Theme;
+}) {
+  const theme = useSyncExternalStore(subscribe, getStoredTheme, () => initialTheme);
+
+  useEffect(() => {
+    const stored = getStoredTheme();
+    writeClientCookie(THEME_COOKIE, stored);
+    applyTheme(stored);
+  }, []);
 
   const setTheme = useCallback((next: Theme) => {
     try {
@@ -53,6 +67,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     } catch {
       /* ignore */
     }
+    writeClientCookie(THEME_COOKIE, next);
     applyTheme(next);
     emit();
   }, []);

@@ -30,7 +30,7 @@ export function LogoMark({
   return (
     <span
       className={cn(
-        "relative shrink-0 overflow-hidden rounded-full shadow-[0_8px_20px_-10px_rgba(25,97,194,0.65)] ring-2 ring-logo-blue/70",
+        "relative block aspect-square shrink-0 overflow-hidden rounded-full shadow-[0_8px_20px_-10px_rgba(25,97,194,0.65)] ring-2 ring-logo-blue/70",
         dark ? "bg-black" : "bg-white",
         mark.box,
         className,

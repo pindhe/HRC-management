@@ -1,10 +1,10 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, Send } from "lucide-react";
 import { Container } from "@/components/Container";
+import { LogoMark } from "@/components/Logo";
 import { Reveal } from "@/components/Reveal";
-import { SectionHeading } from "@/components/SectionHeading";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -97,129 +97,145 @@ export function Contact() {
   ];
 
   return (
-    <section id="contact" className="scroll-mt-24 py-16 sm:py-20 lg:py-28">
-      <Container className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-        <Reveal>
-          <SectionHeading title={t.contact.title} subtitle={t.contact.text} />
-          <ul className="mt-8 space-y-3">
-            {channels.map((channel) => (
-              <li key={channel.label}>
-                <a
-                  href={channel.href}
-                  className="flex items-center gap-3 rounded-2xl border border-forest/8 bg-ivory px-4 py-3 text-sm shadow-sm transition-colors hover:border-gold/40 focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
-                >
-                  <span className="flex size-10 items-center justify-center rounded-xl bg-beige text-forest">
-                    <channel.icon className="size-4" />
-                  </span>
-                  <span>
-                    <span className="block text-xs tracking-wide text-muted uppercase">
-                      {channel.label}
-                    </span>
-                    <span className="font-medium text-forest">{channel.value}</span>
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-
-        <Reveal>
-          {status === "success" ? (
-            <div
-              className="flex min-h-80 items-center rounded-3xl border border-forest/10 bg-beige-warm/60 p-8 text-center"
-              role="status"
-            >
-              <p className="font-heading text-2xl text-forest">{t.contact.form.success}</p>
+    <section id="contact" className="scroll-mt-24 py-20 sm:py-24 lg:py-32">
+      <Container>
+        <div className="overflow-hidden rounded-[2rem] border border-forest/8 shadow-[0_30px_60px_-32px_rgba(27,67,50,0.35)] lg:grid lg:grid-cols-[0.9fr_1.1fr]">
+          <Reveal className="relative bg-forest-deep px-7 py-10 text-ivory sm:px-10 sm:py-12">
+            <div className="pattern-overlay pointer-events-none absolute inset-0 opacity-20" />
+            <div className="relative">
+              <LogoMark size="md" surface="dark" />
+              <h2 className="font-heading mt-6 text-3xl font-semibold text-balance sm:text-4xl">
+                {t.contact.title}
+              </h2>
+              <p className="mt-4 max-w-md text-sm leading-relaxed text-ivory/80 sm:text-base">
+                {t.contact.text}
+              </p>
+              <ul className="mt-8 space-y-3">
+                {channels.map((channel) => (
+                  <li key={channel.label}>
+                    <a
+                      href={channel.href}
+                      className="flex items-center gap-3 rounded-2xl border border-ivory/10 bg-ivory/8 px-4 py-3 text-sm backdrop-blur-sm transition-colors hover:border-gold/40 hover:bg-ivory/12 focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
+                    >
+                      <span className="flex size-10 items-center justify-center rounded-xl bg-gold/15 text-gold">
+                        <channel.icon className="size-4" />
+                      </span>
+                      <span>
+                        <span className="block text-xs tracking-wide text-ivory/55 uppercase">
+                          {channel.label}
+                        </span>
+                        <span className="font-medium text-ivory">{channel.value}</span>
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
-          ) : (
-            <form
-              onSubmit={onSubmit}
-              noValidate
-              className="rounded-3xl border border-forest/8 bg-ivory p-6 shadow-sm sm:p-8"
-            >
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="name">{t.contact.form.name}</Label>
+          </Reveal>
+
+          <Reveal className="bg-ivory p-7 sm:p-10">
+            {status === "success" ? (
+              <div
+                className="flex min-h-80 items-center justify-center text-center"
+                role="status"
+              >
+                <p className="font-heading max-w-sm text-2xl text-forest">
+                  {t.contact.form.success}
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={onSubmit} noValidate>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">{t.contact.form.name}</Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      autoComplete="name"
+                      value={form.name}
+                      aria-invalid={Boolean(errors.name)}
+                      aria-describedby={errors.name ? "name-error" : undefined}
+                      onChange={(event) =>
+                        setForm((current) => ({ ...current, name: event.target.value }))
+                      }
+                    />
+                    {errors.name ? (
+                      <p id="name-error" className="text-xs text-red-700">
+                        {errors.name}
+                      </p>
+                    ) : null}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email">{t.contact.form.email}</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      value={form.email}
+                      aria-invalid={Boolean(errors.email)}
+                      aria-describedby={errors.email ? "email-error" : undefined}
+                      onChange={(event) =>
+                        setForm((current) => ({ ...current, email: event.target.value }))
+                      }
+                    />
+                    {errors.email ? (
+                      <p id="email-error" className="text-xs text-red-700">
+                        {errors.email}
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+                <div className="mt-5 space-y-2">
+                  <Label htmlFor="subject">{t.contact.form.subject}</Label>
                   <Input
-                    id="name"
-                    name="name"
-                    autoComplete="name"
-                    value={form.name}
-                    aria-invalid={Boolean(errors.name)}
-                    aria-describedby={errors.name ? "name-error" : undefined}
+                    id="subject"
+                    name="subject"
+                    value={form.subject}
+                    aria-invalid={Boolean(errors.subject)}
+                    aria-describedby={errors.subject ? "subject-error" : undefined}
                     onChange={(event) =>
-                      setForm((current) => ({ ...current, name: event.target.value }))
+                      setForm((current) => ({ ...current, subject: event.target.value }))
                     }
                   />
-                  {errors.name ? (
-                    <p id="name-error" className="text-xs text-red-700">
-                      {errors.name}
+                  {errors.subject ? (
+                    <p id="subject-error" className="text-xs text-red-700">
+                      {errors.subject}
                     </p>
                   ) : null}
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">{t.contact.form.email}</Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    value={form.email}
-                    aria-invalid={Boolean(errors.email)}
-                    aria-describedby={errors.email ? "email-error" : undefined}
+                <div className="mt-5 space-y-2">
+                  <Label htmlFor="message">{t.contact.form.message}</Label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    value={form.message}
+                    aria-invalid={Boolean(errors.message)}
+                    aria-describedby={errors.message ? "message-error" : undefined}
                     onChange={(event) =>
-                      setForm((current) => ({ ...current, email: event.target.value }))
+                      setForm((current) => ({ ...current, message: event.target.value }))
                     }
                   />
-                  {errors.email ? (
-                    <p id="email-error" className="text-xs text-red-700">
-                      {errors.email}
+                  {errors.message ? (
+                    <p id="message-error" className="text-xs text-red-700">
+                      {errors.message}
                     </p>
                   ) : null}
                 </div>
-              </div>
-              <div className="mt-5 space-y-2">
-                <Label htmlFor="subject">{t.contact.form.subject}</Label>
-                <Input
-                  id="subject"
-                  name="subject"
-                  value={form.subject}
-                  aria-invalid={Boolean(errors.subject)}
-                  aria-describedby={errors.subject ? "subject-error" : undefined}
-                  onChange={(event) =>
-                    setForm((current) => ({ ...current, subject: event.target.value }))
-                  }
-                />
-                {errors.subject ? (
-                  <p id="subject-error" className="text-xs text-red-700">
-                    {errors.subject}
-                  </p>
-                ) : null}
-              </div>
-              <div className="mt-5 space-y-2">
-                <Label htmlFor="message">{t.contact.form.message}</Label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  value={form.message}
-                  aria-invalid={Boolean(errors.message)}
-                  aria-describedby={errors.message ? "message-error" : undefined}
-                  onChange={(event) =>
-                    setForm((current) => ({ ...current, message: event.target.value }))
-                  }
-                />
-                {errors.message ? (
-                  <p id="message-error" className="text-xs text-red-700">
-                    {errors.message}
-                  </p>
-                ) : null}
-              </div>
-              <Button type="submit" size="lg" className="mt-6 w-full sm:w-auto" disabled={status === "submitting"}>
-                {status === "submitting" ? t.contact.form.sending : t.contact.form.submit}
-              </Button>
-            </form>
-          )}
-        </Reveal>
+                <Button
+                  type="submit"
+                  size="lg"
+                  variant="gold"
+                  className="mt-7 w-full sm:w-auto"
+                  disabled={status === "submitting"}
+                >
+                  <Send aria-hidden />
+                  {status === "submitting" ? t.contact.form.sending : t.contact.form.submit}
+                </Button>
+              </form>
+            )}
+          </Reveal>
+        </div>
       </Container>
     </section>
   );

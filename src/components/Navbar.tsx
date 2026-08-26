@@ -3,9 +3,8 @@
 import { useEffect, useId, useState } from "react";
 import {
   BookOpen,
-  CalendarDays,
-  Compass,
   Home,
+  LogOut,
   Mail,
   Menu,
   Sparkles,
@@ -16,6 +15,7 @@ import {
 import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
+import { clearSession } from "@/lib/auth";
 import { useI18n } from "@/lib/i18n/language-provider";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
@@ -24,8 +24,6 @@ const NAV_ITEMS = [
   { href: "#home", key: "home", icon: Home },
   { href: "#about", key: "about", icon: Users },
   { href: "#what-we-do", key: "whatWeDo", icon: BookOpen },
-  { href: "#mission", key: "mission", icon: Compass },
-  { href: "#activities", key: "activities", icon: CalendarDays },
   { href: "#join", key: "join", icon: UserPlus },
   { href: "#contact", key: "contact", icon: Mail },
 ] as const;
@@ -36,6 +34,11 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("#home");
   const menuId = useId();
+
+  function logout() {
+    clearSession();
+    window.location.assign("/");
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -84,8 +87,8 @@ export function Navbar() {
 
   const labels = t.nav;
   const { theme } = useTheme();
-  const onDark = !scrolled && !open;
-  const darkLogo = onDark || theme === "dark";
+  const darkTheme = theme === "dark";
+  const darkChrome = darkTheme || (!scrolled && !open);
 
   return (
     <>
@@ -99,7 +102,9 @@ export function Navbar() {
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-300",
           scrolled || open
-            ? "border-b border-forest/10 bg-ivory/75 shadow-[0_8px_30px_-18px_rgba(28,25,23,0.35)] backdrop-blur-xl"
+            ? darkTheme
+              ? "border-b border-ivory/10 bg-forest-deep/90 shadow-[0_8px_30px_-18px_rgba(0,0,0,0.55)] backdrop-blur-xl"
+              : "border-b border-forest/10 bg-ivory/75 shadow-[0_8px_30px_-18px_rgba(28,25,23,0.35)] backdrop-blur-xl"
             : "bg-transparent",
         )}
       >
@@ -112,7 +117,11 @@ export function Navbar() {
             aria-label="Hage Reading Club"
             className="rounded-lg focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
           >
-            <Logo priority light={onDark} surface={darkLogo ? "dark" : "light"} />
+            <Logo
+              priority
+              light={darkChrome}
+              surface={darkChrome ? "dark" : "light"}
+            />
           </a>
 
           <ul className="hidden items-center gap-0.5 xl:flex">
@@ -127,11 +136,11 @@ export function Navbar() {
                     className={cn(
                       "inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-[13px] font-medium transition-colors focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none",
                       isActive
-                        ? onDark
+                        ? darkChrome
                           ? "bg-ivory/15 text-ivory"
                           : "bg-beige/70 text-forest"
-                        : onDark
-                          ? "text-ivory/80 hover:bg-ivory/10 hover:text-ivory"
+                        : darkChrome
+                          ? "text-ivory/85 hover:bg-ivory/10 hover:text-ivory"
                           : "text-muted hover:bg-beige/40 hover:text-forest",
                     )}
                   >
@@ -150,11 +159,11 @@ export function Navbar() {
           </ul>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            <ThemeToggle light={onDark} />
+            <ThemeToggle light={darkChrome} />
             <Button
               asChild
               size="sm"
-              variant={onDark ? "gold" : "primary"}
+              variant={darkChrome ? "gold" : "primary"}
               className="hidden xl:inline-flex"
             >
               <a href="#join">
@@ -164,9 +173,22 @@ export function Navbar() {
             </Button>
             <button
               type="button"
+              onClick={logout}
+              aria-label={labels.logout}
+              className={cn(
+                "inline-flex size-11 items-center justify-center rounded-full border backdrop-blur transition-colors focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none",
+                darkChrome
+                  ? "border-ivory/30 bg-ivory/10 text-ivory hover:bg-ivory/20"
+                  : "border-forest/15 bg-ivory/80 text-forest hover:bg-beige/70",
+              )}
+            >
+              <LogOut className="size-4" aria-hidden />
+            </button>
+            <button
+              type="button"
               className={cn(
                 "inline-flex size-11 items-center justify-center rounded-full border backdrop-blur xl:hidden focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none",
-                onDark
+                darkChrome
                   ? "border-ivory/30 bg-ivory/10 text-ivory"
                   : "border-forest/15 bg-ivory/80 text-forest",
               )}
@@ -185,8 +207,9 @@ export function Navbar() {
         id={menuId}
         hidden={!open}
         className={cn(
-          "fixed inset-0 z-40 bg-ivory/95 pt-24 backdrop-blur-xl xl:hidden",
+          "fixed inset-0 z-40 pt-24 backdrop-blur-xl xl:hidden",
           open ? "block" : "hidden",
+          darkTheme ? "bg-forest-deep/95" : "bg-ivory/95",
         )}
         role="dialog"
         aria-modal="true"
@@ -200,10 +223,20 @@ export function Navbar() {
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="flex items-center gap-3 rounded-2xl px-4 py-3 font-heading text-2xl text-forest transition-colors hover:bg-beige/50 focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
+                    className={cn(
+                      "flex items-center gap-3 rounded-2xl px-4 py-3 font-heading text-2xl transition-colors focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none",
+                      darkTheme
+                        ? "text-ivory hover:bg-ivory/10"
+                        : "text-forest hover:bg-beige/50",
+                    )}
                     onClick={() => setOpen(false)}
                   >
-                    <span className="flex size-10 items-center justify-center rounded-xl bg-beige text-forest">
+                    <span
+                      className={cn(
+                        "flex size-10 items-center justify-center rounded-xl",
+                        darkTheme ? "bg-ivory/10 text-gold" : "bg-beige text-forest",
+                      )}
+                    >
                       <Icon className="size-5" aria-hidden />
                     </span>
                     {labels[item.key]}
@@ -212,11 +245,24 @@ export function Navbar() {
               );
             })}
           </ul>
-          <Button asChild size="lg" className="w-full">
+          <Button asChild size="lg" variant={darkTheme ? "gold" : "primary"} className="w-full">
             <a href="#join" onClick={() => setOpen(false)}>
               <Sparkles aria-hidden />
               {labels.cta}
             </a>
+          </Button>
+          <Button
+            type="button"
+            size="lg"
+            variant={darkTheme ? "outline" : "secondary"}
+            className="w-full"
+            onClick={() => {
+              setOpen(false);
+              logout();
+            }}
+          >
+            <LogOut aria-hidden />
+            {labels.logout}
           </Button>
         </div>
       </div>

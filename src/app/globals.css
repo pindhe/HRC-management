@@ -58,6 +58,38 @@ body {
   color: #f4ede1;
 }
 
+.dark .bg-ivory {
+  background-color: #173024;
+}
+
+.dark .text-forest,
+.dark .text-forest-deep {
+  color: #eef3ef;
+}
+
+.dark input,
+.dark textarea {
+  background-color: #102018;
+  color: #f4ede1;
+  border-color: rgba(251, 247, 240, 0.16);
+}
+
+.login-panel input:not([type="checkbox"]) {
+  background-color: #fbf7f0;
+  color: #1c1917;
+  border-color: rgba(27, 67, 50, 0.16);
+}
+
+.dark .login-panel h1,
+.dark .login-panel .text-forest,
+.dark .login-panel .text-forest-deep {
+  color: #1b4332;
+}
+
+.dark .login-panel .text-muted {
+  color: #57534e;
+}
+
 body {
   font-family: var(--font-sans);
   min-height: 100%;

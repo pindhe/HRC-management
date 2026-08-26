@@ -12,7 +12,7 @@ export function CTA() {
   const { t } = useI18n();
 
   return (
-    <section className="relative overflow-hidden py-20 sm:py-24 lg:py-32">
+    <section id="join" className="relative scroll-mt-24 overflow-hidden py-20 sm:py-24 lg:py-32">
       <Image
         src={images.cta}
         alt=""
@@ -36,7 +36,7 @@ export function CTA() {
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild variant="gold" size="lg">
-              <a href="#join">{t.cta.primary}</a>
+              <a href="#contact">{t.cta.primary}</a>
             </Button>
             <Button asChild variant="outline" size="lg">
               <a href="#about">{t.cta.secondary}</a>

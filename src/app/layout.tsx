@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { cookies } from "next/headers";
 import {
   Noto_Naskh_Arabic,
   Noto_Sans_Arabic,
@@ -6,6 +7,9 @@ import {
   Poppins,
 } from "next/font/google";
 import { Providers } from "@/components/Providers";
+import { defaultLocale, localeMeta, locales, type Locale } from "@/lib/i18n/types";
+import { LOCALE_COOKIE, THEME_COOKIE } from "@/lib/prefs";
+import type { Theme } from "@/lib/theme";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -82,29 +86,28 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const localeBootstrap = `
-try {
-  var html = document.documentElement;
-  var l = localStorage.getItem("hage-locale");
-  if (l === "ar") { html.lang = "ar"; html.dir = "rtl"; }
-  else if (l === "en") { html.lang = "en"; html.dir = "ltr"; }
-  else { html.lang = "so"; html.dir = "ltr"; }
-  if (localStorage.getItem("hage-theme") === "dark") html.classList.add("dark");
-} catch (e) {}
-`;
+function isLocale(value: string | undefined): value is Locale {
+  return value !== undefined && (locales as readonly string[]).includes(value);
+}
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const jar = await cookies();
+  const localeCookie = jar.get(LOCALE_COOKIE)?.value;
+  const locale = isLocale(localeCookie) ? localeCookie : defaultLocale;
+  const theme: Theme = jar.get(THEME_COOKIE)?.value === "dark" ? "dark" : "light";
+  const meta = localeMeta[locale];
+
   return (
     <html
-      lang="so"
-      dir="ltr"
-      className={`${playfair.variable} ${poppins.variable} ${naskh.variable} ${arabic.variable} h-full antialiased`}
+      lang={meta.htmlLang}
+      dir={meta.dir}
+      suppressHydrationWarning
+      className={`${playfair.variable} ${poppins.variable} ${naskh.variable} ${arabic.variable} h-full antialiased${theme === "dark" ? " dark" : ""}`}
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: localeBootstrap }} />
-      </head>
       <body className="flex min-h-full flex-col bg-page text-charcoal dark:text-[#f4ede1]">
-        <Providers>{children}</Providers>
+        <Providers initialTheme={theme} initialLocale={locale}>
+          {children}
+        </Providers>
       </body>
     </html>
   );

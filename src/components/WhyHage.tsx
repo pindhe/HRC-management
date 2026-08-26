@@ -12,7 +12,7 @@ export function WhyHage() {
   const { t } = useI18n();
 
   return (
-    <section className="scroll-mt-24 py-16 sm:py-20 lg:py-28">
+    <section id="why-hage" className="scroll-mt-24 py-16 sm:py-20 lg:py-28">
       <Container className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
         <div>
           <Reveal>

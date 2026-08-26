@@ -30,6 +30,7 @@ export type Dictionary = {
     skipToContent: string;
     themeToDark: string;
     themeToLight: string;
+    logout: string;
   };
   hero: {
     badge: string;
@@ -114,12 +115,70 @@ export type Dictionary = {
   footer: {
     description: string;
     explore: string;
-    community: string;
+    connect: string;
     follow: string;
-    events: string;
-    discussions: string;
     copyright: string;
     madeWith: string;
+    backToTop: string;
     linkedin: string;
+  };
+  login: {
+    title: string;
+    subtitle: string;
+    email: string;
+    password: string;
+    remember: string;
+    submit: string;
+    submitting: string;
+    emailError: string;
+    passwordError: string;
+    showPassword: string;
+    hidePassword: string;
+    quote: string;
+    quoteBy: string;
+    imageAlt: string;
+    roleError: string;
+  };
+  roles: {
+    label: string;
+    choose: string;
+    admin: string;
+    member: string;
+    cashier: string;
+    adminHint: string;
+    memberHint: string;
+    cashierHint: string;
+  };
+  admin: {
+    title: string;
+    subtitle: string;
+    members: string;
+    addMember: string;
+    name: string;
+    email: string;
+    role: string;
+    save: string;
+    empty: string;
+    nameError: string;
+    emailError: string;
+    overview: string;
+    countMembers: string;
+    countPayments: string;
+  };
+  cashier: {
+    title: string;
+    subtitle: string;
+    collect: string;
+    memberName: string;
+    amount: string;
+    method: string;
+    save: string;
+    empty: string;
+    amountError: string;
+    memberError: string;
+    history: string;
+    cash: string;
+    transfer: string;
+    mobile: string;
   };
 };
