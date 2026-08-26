@@ -165,6 +165,11 @@ export type Dictionary = {
     overview: string;
     countMembers: string;
     countPayments: string;
+    dashboard: string;
+    payments: string;
+    clubSite: string;
+    openMenu: string;
+    closeMenu: string;
   };
   cashier: {
     title: string;

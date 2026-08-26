@@ -273,6 +273,11 @@ export const ar: Dictionary = {
     overview: "نظرة عامة",
     countMembers: "الأعضاء",
     countPayments: "المدفوعات المسجّلة",
+    dashboard: "لوحة التحكم",
+    payments: "المدفوعات",
+    clubSite: "موقع النادي",
+    openMenu: "فتح القائمة",
+    closeMenu: "إغلاق القائمة",
   },
   cashier: {
     title: "أمين الصندوق",

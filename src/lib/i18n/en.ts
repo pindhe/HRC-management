@@ -274,6 +274,11 @@ export const en: Dictionary = {
     overview: "Overview",
     countMembers: "Members",
     countPayments: "Payments recorded",
+    dashboard: "Dashboard",
+    payments: "Payments",
+    clubSite: "Club site",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
   },
   cashier: {
     title: "Cashier",

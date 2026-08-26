@@ -274,6 +274,11 @@ export const so: Dictionary = {
     overview: "Guudmar",
     countMembers: "Xubnaha",
     countPayments: "Lacagaha la diiwaangeliyay",
+    dashboard: "Dashboard",
+    payments: "Lacagaha",
+    clubSite: "Bogga naadiga",
+    openMenu: "Fur liiska",
+    closeMenu: "Xir liiska",
   },
   cashier: {
     title: "Khasnaji",
