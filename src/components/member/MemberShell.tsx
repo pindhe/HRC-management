@@ -31,7 +31,7 @@ export function MemberShell({ children }: { children: ReactNode }) {
       <div
         className={
           isHome
-            ? "flex min-h-0 flex-1 flex-col overflow-hidden pb-28"
+            ? "relative flex min-h-0 flex-1 flex-col overflow-hidden"
             : "mx-auto w-full max-w-3xl flex-1 px-5 py-8 pb-28 sm:px-6"
         }
       >
@@ -40,7 +40,12 @@ export function MemberShell({ children }: { children: ReactNode }) {
 
       <nav
         aria-label={t.roles.member}
-        className="fixed inset-x-0 bottom-0 z-50 border-t border-forest/10 bg-ivory/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl dark:border-ivory/10 dark:bg-forest-deep/95"
+        className={cn(
+          "fixed inset-x-0 bottom-0 z-50 pb-[env(safe-area-inset-bottom)]",
+          isHome
+            ? "border-t border-ivory/20 bg-ivory/45 backdrop-blur-sm dark:border-ivory/10 dark:bg-forest-deep/45"
+            : "border-t border-forest/10 bg-ivory/95 backdrop-blur-xl dark:border-ivory/10 dark:bg-forest-deep/95",
+        )}
       >
         <div className="mx-auto grid h-[4.25rem] max-w-3xl grid-cols-4">
           {NAV.map((item) => {

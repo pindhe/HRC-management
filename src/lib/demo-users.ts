@@ -10,8 +10,8 @@ export type DemoUser = {
 
 export const demoUsers: DemoUser[] = [
   {
-    email: "hage@gmaiil.com",
-    password: "hage123@",
+    email: "hrc1@gmail.com",
+    password: "hage@123@",
     role: "admin",
     name: "Admin",
   },

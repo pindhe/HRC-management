@@ -74,7 +74,7 @@ export function LoginPage() {
         </section>
 
         <section className="flex items-center justify-center px-5 py-12 sm:px-8">
-          <div className="login-panel w-full max-w-[26.5rem] rounded-[2rem] border border-ivory/20 bg-ivory/95 p-7 shadow-[0_28px_80px_-24px_rgba(0,0,0,0.55)] backdrop-blur-md sm:p-9">
+          <div className="login-panel w-full max-w-[26.5rem] rounded-[2rem] border border-ivory/35 bg-ivory/40 p-7 shadow-[0_20px_50px_-24px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:p-9">
             <div className="flex justify-center lg:hidden">
               <Logo surface="light" stacked priority />
             </div>

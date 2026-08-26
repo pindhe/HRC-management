@@ -75,7 +75,7 @@ body {
 }
 
 .login-panel input:not([type="checkbox"]) {
-  background-color: #fbf7f0;
+  background-color: rgba(251, 247, 240, 0.7);
   color: #1c1917;
   border-color: rgba(27, 67, 50, 0.16);
 }
@@ -126,6 +126,19 @@ body {
     linear-gradient(90deg, rgba(196, 163, 90, 0.08) 1px, transparent 1px),
     radial-gradient(circle at 20% 20%, rgba(196, 163, 90, 0.18), transparent 36%);
   background-size: 28px 28px, 28px 28px, 100% 100%;
+}
+
+.welcome-3d {
+  transform-style: preserve-3d;
+  text-shadow:
+    0 1px 0 #f4ede1,
+    0 2px 0 #dcc48a,
+    0 3px 0 #c4a35a,
+    0 5px 0 #9a7c3c,
+    0 12px 22px rgba(13, 40, 24, 0.55),
+    0 0 18px rgba(220, 196, 138, 0.9),
+    0 0 42px rgba(196, 163, 90, 0.65),
+    0 0 78px rgba(196, 163, 90, 0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {
