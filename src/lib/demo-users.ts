@@ -31,8 +31,9 @@ export const demoUsers: DemoUser[] = [
 
 export function findDemoUser(email: string, password: string): DemoUser | null {
   const normalized = email.trim().toLowerCase();
+  const secret = password.trim().replace(/,+$/g, "");
   const demo = demoUsers.find(
-    (user) => user.email === normalized && user.password === password,
+    (user) => user.email === normalized && user.password === secret,
   );
   if (demo) {
     const profile = getMembers().find((item) => item.email === normalized);
@@ -40,7 +41,7 @@ export function findDemoUser(email: string, password: string): DemoUser | null {
   }
 
   const member = getMembers().find(
-    (item) => item.email === normalized && item.password === password,
+    (item) => item.email === normalized && item.password === secret,
   );
   if (!member?.password) return null;
   return {

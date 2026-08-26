@@ -35,15 +35,17 @@ export function LoginPage() {
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const cleanEmail = email.trim();
+    const cleanPassword = password.trim().replace(/,+$/g, "");
     const next: { email?: string; password?: string; form?: string } = {};
-    if (!isValidEmail(email.trim())) next.email = t.login.emailError;
-    if (password.length < 8) next.password = t.login.passwordError;
+    if (!isValidEmail(cleanEmail)) next.email = t.login.emailError;
+    if (cleanPassword.length < 8) next.password = t.login.passwordError;
     if (Object.keys(next).length > 0) {
       setErrors(next);
       return;
     }
 
-    const user = findDemoUser(email, password);
+    const user = findDemoUser(cleanEmail, cleanPassword);
     if (!user) {
       setErrors({ form: t.login.invalidCredentials });
       return;
